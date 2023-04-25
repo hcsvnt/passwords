@@ -85,19 +85,32 @@ function PasswordForm() {
                 />
                 <label htmlFor="include-lowercase-checkbox">Include Lowercase Characters</label>
             </div>
-            <div>
-                <input
-                    type="checkbox"
-                    id="include-uppercase-checkbox"
-                    checked={state.includeUppercase}
-                    onChange={event =>
-                        dispatch({ type: 'setIncludeUppercase', payload: event.target.checked })
-                    }
-                />
-                <label htmlFor="include-uppercase-checkbox">Include Uppercase Characters</label>
-            </div>
+            <CheckboxInput
+                id="include-uppercase-checkbox"
+                label="Include Uppercase Characters"
+                checked={state.includeUppercase}
+                onChange={event =>
+                    dispatch({ type: 'setIncludeUppercase', payload: event.target.checked })
+                }
+            />
             <button type="submit">Generate Password</button>
         </form>
+    );
+}
+
+interface CheckboxInputProps {
+    id: string;
+    label: string;
+    checked: boolean;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function CheckboxInput({ id, label, checked, onChange }: CheckboxInputProps) {
+    return (
+        <div>
+            <input type="checkbox" id={id} checked={checked} onChange={onChange} />
+            <label htmlFor={id}>{label}</label>
+        </div>
     );
 }
 
