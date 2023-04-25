@@ -1,11 +1,11 @@
 import { styled } from './styles/stitches';
 import { flex } from './styles/utils';
-import Hello from './components/home/Hello/Hello';
+import Form from './components/Form/Form';
 
 function App() {
     return (
         <Main>
-            <Hello />
+            <Form />
         </Main>
     );
 }
