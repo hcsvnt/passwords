@@ -46,45 +46,35 @@ function PasswordForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="password-length-slider">Password Length:</label>
-                <input
-                    type="range"
-                    id="password-length-slider"
-                    min="8"
-                    max="64"
-                    value={state.passwordLength}
-                    onChange={event =>
-                        dispatch({
-                            type: 'setPasswordLength',
-                            payload: parseInt(event.target.value)
-                        })
-                    }
-                />
-                <span>{state.passwordLength}</span>
-            </div>
-            <div>
-                <input
-                    type="checkbox"
-                    id="include-numbers-checkbox"
-                    checked={state.includeNumbers}
-                    onChange={event =>
-                        dispatch({ type: 'setIncludeNumbers', payload: event.target.checked })
-                    }
-                />
-                <label htmlFor="include-numbers-checkbox">Include Numbers</label>
-            </div>
-            <div>
-                <input
-                    type="checkbox"
-                    id="include-lowercase-checkbox"
-                    checked={state.includeLowercase}
-                    onChange={event =>
-                        dispatch({ type: 'setIncludeLowercase', payload: event.target.checked })
-                    }
-                />
-                <label htmlFor="include-lowercase-checkbox">Include Lowercase Characters</label>
-            </div>
+            <RangeInput
+                id="password-length-slider"
+                label="Password Length"
+                min={8}
+                max={64}
+                value={state.passwordLength}
+                onChange={event =>
+                    dispatch({
+                        type: 'setPasswordLength',
+                        payload: parseInt(event.target.value)
+                    })
+                }
+            />
+            <CheckboxInput
+                id="include-numbers-checkbox"
+                label="Include Numbers"
+                checked={state.includeNumbers}
+                onChange={event =>
+                    dispatch({ type: 'setIncludeNumbers', payload: event.target.checked })
+                }
+            />
+            <CheckboxInput
+                id="include-lowercase-checkbox"
+                label="Include Lowercase Characters"
+                checked={state.includeLowercase}
+                onChange={event =>
+                    dispatch({ type: 'setIncludeLowercase', payload: event.target.checked })
+                }
+            />
             <CheckboxInput
                 id="include-uppercase-checkbox"
                 label="Include Uppercase Characters"
@@ -95,6 +85,25 @@ function PasswordForm() {
             />
             <button type="submit">Generate Password</button>
         </form>
+    );
+}
+
+interface RangeInputProps {
+    id: string;
+    label: string;
+    min: number;
+    max: number;
+    value: number;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function RangeInput({ id, label, min, max, value, onChange }: RangeInputProps) {
+    return (
+        <div>
+            <label htmlFor={id}>{label}</label>
+            <input type="range" id={id} min={min} max={max} value={value} onChange={onChange} />
+            <span>{value}</span>
+        </div>
     );
 }
 
